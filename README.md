@@ -6,9 +6,10 @@ Sabin's Lab 5
 ## Demonstrations
 
 ### 1st Program
-Demonstrated to Dr. Neebel on 18 April 2014.
+Demonstrated to Dr. Neebel on 18 April 2014 in class.
 
 ### 2nd Program
+Demonstrated to Dr. Neebel on 25 April 2015 at 0845.
 
 ## Part 1 - PRISM Setup and First Program
 I followed the lab handout step-by-step and obtained my simulation shown below:
