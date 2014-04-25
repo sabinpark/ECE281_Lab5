@@ -1,0 +1,256 @@
+		   00	   7	LDAI	0	loads the acc to 0 initially	N	1	Y
+		   01	   0				Y	0	N
+		   02	   D	STA	ones digit	stores the acc into "ones digit"	N	2	N
+		   03	   2				Y	0	N
+		   04	   B				Y	0	N
+		   05	   D	STA	tens digit	stores the acc into "tens digit"	N	2	N
+		   06	   1				Y	0	N
+		   07	   B				Y	0	N
+		   08	   4	OUT	1	output 0 to the tens digit	N	1	Y
+		   09	   1				Y	0	N
+		   0A	   4	OUT	2	output 0 to the ones digit	N	1	Y
+		   0B	   2				Y	0	N
+	+1	   0C	   5	IN	0	first check input	N	1	N
+		   0D	   0				Y	0	N
+		   0E	   B	JN	-1		N	2	N
+		   0F	   E				Y	0	N
+		   10	   4				Y	0	N
+		   11	   F	LDAD	ones digit		N	2	N
+		   12	   2				Y	0	N
+		   13	   B				Y	0	N
+		   14	   6	ADDI	1	increment the acc by 1 (ones digit)	N	1	Y
+		   15	   1				Y	0	N
+		   16	   D	STA	ones digit		N	2	N
+		   17	   2				Y	0	N
+		   18	   B				Y	0	N
+		   19	   4	OUT	2	output incremented ones digit	N	1	Y
+		   1A	   2				Y	0	N
+		   1B	   6	ADDI	7	check if acc is 9 by adding 7	N	1	N
+		   1C	   7				Y	0	N
+		   1D	   A	JZ	check 99	if ones digit is 9, then check for the tens digit for a 9	N	2	N
+		   1E	   3				Y	0	N
+		   1F	   2				Y	0	N
+		   20	   9	JMP	+1	if not 9, then continue to increment	N	2	N
+		   21	   C				Y	0	N
+		   22	   0				Y	0	N
+	check 99	   23	   F	LDAD	tens digit	load the tens digit	N	2	N
+		   24	   1				Y	0	N
+		   25	   B				Y	0	N
+		   26	   6	ADDI	7	check if the tens digit is 9	N	1	N
+		   27	   7				Y	0	N
+		   28	   A	JZ	99 to 00	if tens digit is 9 as well, we have 99, so go to 99 to 00	N	2	N
+		   29	   F				Y	0	N
+		   2A	   3				Y	0	N
+	+10	   2B	   7	LDAI	0	otherwise increment the tens digit	N	1	N
+		   2C	   0			first load a 0 to reset the ones digit	Y	0	N
+		   2D	   D	STA	ones digit		N	2	N
+		   2E	   2				Y	0	N
+		   2F	   B				Y	0	N
+		   30	   4	OUT	2	resets the ones digit back to 0	N	1	N
+		   31	   2				Y	0	N
+		   32	   F	LDAD	tens digit	load the tens digit (from the prev. stored value)	N	2	Y
+		   33	   1				Y	0	N
+		   34	   B				Y	0	N
+		   35	   6	ADDI	1	increment the acc by 1 (tens digit)	N	1	Y
+		   36	   1				Y	0	N
+		   37	   D	STA	tens digit		N	2	N
+		   38	   1				Y	0	N
+		   39	   B				Y	0	N
+		   3A	   4	OUT	1	output incremented tens digit	N	1	N
+		   3B	   1				Y	0	N
+		   3C	   9	JMP	+1	go back to incrementing ones digit	N	2	N
+		   3D	   C				Y	0	N
+		   3E	   0				Y	0	N
+	99 to 00	   3F	   7	LDAI	0		N	1	Y
+		   40	   0				Y	0	N
+		   41	   D	STA	ones digit		N	2	N
+		   42	   2				Y	0	N
+		   43	   B				Y	0	N
+		   44	   D	STA	tens digit		N	2	Y
+		   45	   1				Y	0	N
+		   46	   B				Y	0	N
+		   47	   4	OUT	1	output 0 to the tens digit	N	1	Y
+		   48	   1				Y	0	N
+		   49	   4	OUT	2	output 0 to the ones digit	N	1	Y
+		   4A	   2				Y	0	N
+		   4B	   9	JMP	+1		N	2	N
+		   4C	   C				Y	0	N
+		   4D	   0				Y	0	N
+	-1	   4E	   5	IN	0		N	1	N
+		   4F	   0				Y	0	N
+		   50	   B	JN	continue -1	if input is negative, continue decrementing	N	2	N
+		   51	   6				Y	0	N
+		   52	   5				Y	0	N
+		   53	   9	JMP	+1	otherwise, increment up	N	2	N
+		   54	   C				Y	0	N
+		   55	   0				Y	0	N
+	continue -1	   56	   F	LDAD	ones digit	loads ones digit	N	2	Y
+		   57	   2				Y	0	N
+		   58	   B				Y	0	N
+		   59	   A	JZ	-10	check if ones digit is 0	N	2	N
+		   5A	   6				Y	0	N
+		   5B	   6				Y	0	N
+		   5C	   6	ADDI	F	otherwise, decrement by 1	N	1	Y
+		   5D	   F				Y	0	N
+		   5E	   D	STA	ones digit	store the ones digit	N	2	N
+		   5F	   2				Y	0	N
+		   60	   B				Y	0	N
+		   61	   4	OUT	2	output the updated ones digit	N	1	N
+		   62	   2				Y	0	N
+		   63	   9	JMP	-1	continue decermenting by 1	N	2	Y
+		   64	   E				Y	0	N
+		   65	   4				Y	0	N
+	-10	   66	   F	LDAD	tens digit	load the tens digit	N	2	Y
+		   67	   1				Y	0	N
+		   68	   B				Y	0	N
+		   69	   A	JZ	00 to 99	at this point, we have 00	N	2	N
+		   6A	   D				Y	0	N
+		   6B	   7				Y	0	N
+		   6C	   6	ADDI	F	otherwise, decrement tens digit by 1	N	1	Y
+		   6D	   F				Y	0	N
+		   6E	   D	STA	tens digit	store the updated tens digit	N	2	N
+		   6F	   1				Y	0	N
+		   70	   B				Y	0	N
+		   71	   4	OUT	1	output the tens digit	N	1	N
+		   72	   1				Y	0	N
+		   73	   7	LDAI	9		N	1	N
+		   74	   9				Y	0	N
+		   75	   D	STA	ones digit		N	2	N
+		   76	   2				Y	0	N
+		   77	   B				Y	0	N
+		   78	   4	OUT	2		N	1	N
+		   79	   2				Y	0	N
+		   7A	   9	JMP	-1		N	2	Y
+		   7B	   E				Y	0	N
+		   7C	   4				Y	0	N
+	00 to 99	   7D	   7	LDAI	9		N	1	N
+		   7E	   9				Y	0	N
+		   7F	   D	STA	tens digit		N	2	N
+		   80	   1				Y	0	N
+		   81	   B				Y	0	N
+		   82	   D	STA	ones digit		N	2	N
+		   83	   2				Y	0	N
+		   84	   B				Y	0	N
+		   85	   4	OUT	2		N	1	N
+		   86	   2				Y	0	N
+		   87	   4	OUT	1		N	1	N
+		   88	   1				Y	0	N
+		   89	   9	JMP	-1	this code works right now as it is!!!	N	2	N
+		   8A	   E				Y	0	N
+		   8B	   4				Y	0	N
+		   8C	   0	NOP			N	0	N
+		   8D	   0	NOP			N	0	N
+		   8E	   0	NOP			N	0	N
+		   8F	   0	NOP			N	0	N
+		   90	   0	NOP			N	0	N
+		   91	   0	NOP			N	0	N
+		   92	   0	NOP			N	0	N
+		   93	   0	NOP			N	0	N
+		   94	   0	NOP			N	0	N
+		   95	   0	NOP			N	0	N
+		   96	   0	NOP			N	0	N
+		   97	   0	NOP			N	0	N
+		   98	   0	NOP			N	0	N
+		   99	   0	NOP			N	0	N
+		   9A	   0	NOP			N	0	N
+		   9B	   0	NOP			N	0	N
+		   9C	   0	NOP			N	0	N
+		   9D	   0	NOP			N	0	N
+		   9E	   0	NOP			N	0	N
+		   9F	   0	NOP			N	0	N
+		   A0	   0	NOP			N	0	N
+		   A1	   0	NOP			N	0	N
+		   A2	   0	NOP			N	0	N
+		   A3	   0	NOP			N	0	N
+		   A4	   0	NOP			N	0	N
+		   A5	   0	NOP			N	0	N
+		   A6	   0	NOP			N	0	N
+		   A7	   0	NOP			N	0	N
+		   A8	   0	NOP			N	0	N
+		   A9	   0	NOP			N	0	N
+		   AA	   0	NOP			N	0	N
+		   AB	   0	NOP			N	0	N
+		   AC	   0	NOP			N	0	N
+		   AD	   0	NOP			N	0	N
+		   AE	   0	NOP			N	0	N
+		   AF	   0	NOP			N	0	N
+		   B0	   0	
+	tens digit	   B1	   0	
+	ones digit	   B2	   4	
+		   B3	   0	
+		   B4	   0	
+		   B5	   0	
+		   B6	   0	
+		   B7	   0	
+		   B8	   0	
+		   B9	   0	
+		   BA	   0	
+		   BB	   0	
+		   BC	   0	
+		   BD	   0	
+		   BE	   0	
+		   BF	   0	
+		   C0	   0	
+		   C1	   0	
+		   C2	   0	
+		   C3	   0	
+		   C4	   0	
+		   C5	   0	
+		   C6	   0	
+		   C7	   0	
+		   C8	   0	
+		   C9	   0	
+		   CA	   0	
+		   CB	   0	
+		   CC	   0	
+		   CD	   0	
+		   CE	   0	
+		   CF	   0	
+		   D0	   0	
+		   D1	   0	
+		   D2	   0	
+		   D3	   0	
+		   D4	   0	
+		   D5	   0	
+		   D6	   0	
+		   D7	   0	
+		   D8	   0	
+		   D9	   0	
+		   DA	   0	
+		   DB	   0	
+		   DC	   0	
+		   DD	   0	
+		   DE	   0	
+		   DF	   0	
+		   E0	   0	
+		   E1	   0	
+		   E2	   0	
+		   E3	   0	
+		   E4	   0	
+		   E5	   0	
+		   E6	   0	
+		   E7	   0	
+		   E8	   0	
+		   E9	   0	
+		   EA	   0	
+		   EB	   0	
+		   EC	   0	
+		   ED	   0	
+		   EE	   0	
+		   EF	   0	
+		   F0	   0	
+		   F1	   0	
+		   F2	   0	
+		   F3	   0	
+		   F4	   0	
+		   F5	   0	
+		   F6	   0	
+		   F7	   0	
+		   F8	   0	
+		   F9	   0	
+		   FA	   0	
+		   FB	   0	
+		   FC	   0	
+		   FD	   0	
+		   FE	   0	
+		   FF	   0	
