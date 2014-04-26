@@ -186,10 +186,10 @@ LED <= CLOCKBUS_SIG(26 DOWNTO 19);
 -----------------------------------------------------------------------------
 -- INSTANTIATION FOR THE PRISM MODULE
 	Inst_PRISM : PRISM PORT MAP(
-		Clock => Clockbus_Sig(10),
+		Clock => Clockbus_Sig(22),
 		-- 22 for part 1
 		-- 19 for part 2
-		-- for part 3
+		-- 10 for part 3
 		
 		Reset_L => reset_low,
 		--Control_Bus => ,
