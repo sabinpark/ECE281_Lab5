@@ -89,10 +89,12 @@ I ran the program on the FPGA and started with 0 times all combinations of B.  T
 ### Programs 2 and 3
 I had a very frustrating time with the PRISM simulator in that everything ran very,very slowly.  I had to wait about 6 seconds before a number would count up from 00 to 01.  This made it very time-consuming to test my program.  Fortunately, after I was all done with my 2nd program, I found a solution to this madness (of course it had to be after I finished...).  What I normally did was run my program using the .jar file.  I then tried the .exe file.  Both of them were very slow.  By chance, I opened the .bat file, then ran my program.  It was exponentially faster.
 
-## Questions
+## Question Answers
 1.  When the controller's current state is FETCH, PCLd = 1, IRLd, = 1, and ACCLd = 0
-2.  The controls signals asserted while the current state is Decode LOAddr: MARLoLd, PCLd, and AEQZero_int.
-	* Next state will be Direct IO Execute.
+2.  The controls signals asserted while the current state is Decode LOAddr: MARLoLd, PCLd, Read, MemSel_l and AEQZero.  Next state will be Direct IO Execute.
 3.  IR, ALessZero, and AEQZero
-4.  So that the controller will know what value the data will be added to
-5.  The IR needs to hold another instruction, so we would need another bit
+4.  So that the controller will know what value the operand will be added to
+5.  The IR needs to hold another instruction, so we would need another bit for the IR and OpSel.
+
+## Documentation
+Jarrod Wooden suggested I try different clock speeds for the first program.  Eventually the clock speed of 22 worked.
