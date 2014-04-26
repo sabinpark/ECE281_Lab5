@@ -12,15 +12,15 @@
 		   0B	   2				Y	0	N
 	+1	   0C	   5	IN	0	first check input	N	1	N
 		   0D	   0				Y	0	N
-		   0E	   B	JN	-1		N	2	N
+		   0E	   B	JN	-1	if the input is negative, jump to decrement	N	2	N
 		   0F	   E				Y	0	N
 		   10	   4				Y	0	N
-		   11	   F	LDAD	ones digit		N	2	N
+		   11	   F	LDAD	ones digit	load the ones digit	N	2	N
 		   12	   2				Y	0	N
 		   13	   B				Y	0	N
 		   14	   6	ADDI	1	increment the acc by 1 (ones digit)	N	1	Y
 		   15	   1				Y	0	N
-		   16	   D	STA	ones digit		N	2	N
+		   16	   D	STA	ones digit	store the ones digit	N	2	N
 		   17	   2				Y	0	N
 		   18	   B				Y	0	N
 		   19	   4	OUT	2	output incremented ones digit	N	1	Y
@@ -53,7 +53,7 @@
 		   34	   B				Y	0	N
 		   35	   6	ADDI	1	increment the acc by 1 (tens digit)	N	1	Y
 		   36	   1				Y	0	N
-		   37	   D	STA	tens digit		N	2	N
+		   37	   D	STA	tens digit	store the tens digit	N	2	N
 		   38	   1				Y	0	N
 		   39	   B				Y	0	N
 		   3A	   4	OUT	1	output incremented tens digit	N	1	N
@@ -61,22 +61,22 @@
 		   3C	   9	JMP	+1	go back to incrementing ones digit	N	2	N
 		   3D	   C				Y	0	N
 		   3E	   0				Y	0	N
-	99 to 00	   3F	   7	LDAI	0		N	1	Y
+	99 to 00	   3F	   7	LDAI	0	load 0 into the acc	N	1	Y
 		   40	   0				Y	0	N
-		   41	   D	STA	ones digit		N	2	N
+		   41	   D	STA	ones digit	store the ones digit	N	2	N
 		   42	   2				Y	0	N
 		   43	   B				Y	0	N
-		   44	   D	STA	tens digit		N	2	Y
+		   44	   D	STA	tens digit	store the tens digit	N	2	Y
 		   45	   1				Y	0	N
 		   46	   B				Y	0	N
 		   47	   4	OUT	1	output 0 to the tens digit	N	1	Y
 		   48	   1				Y	0	N
 		   49	   4	OUT	2	output 0 to the ones digit	N	1	Y
 		   4A	   2				Y	0	N
-		   4B	   9	JMP	+1		N	2	N
+		   4B	   9	JMP	+1	jump to increment the ones digit	N	2	N
 		   4C	   C				Y	0	N
 		   4D	   0				Y	0	N
-	-1	   4E	   5	IN	0		N	1	N
+	-1	   4E	   5	IN	0	check the input	N	1	N
 		   4F	   0				Y	0	N
 		   50	   B	JN	continue -1	if input is negative, continue decrementing	N	2	N
 		   51	   6				Y	0	N
@@ -113,29 +113,29 @@
 		   70	   B				Y	0	N
 		   71	   4	OUT	1	output the tens digit	N	1	N
 		   72	   1				Y	0	N
-		   73	   7	LDAI	9		N	1	N
+		   73	   7	LDAI	9	load 9 into the acc	N	1	N
 		   74	   9				Y	0	N
-		   75	   D	STA	ones digit		N	2	N
+		   75	   D	STA	ones digit	store the ones digit	N	2	N
 		   76	   2				Y	0	N
 		   77	   B				Y	0	N
-		   78	   4	OUT	2		N	1	N
+		   78	   4	OUT	2	output the ones digit	N	1	N
 		   79	   2				Y	0	N
-		   7A	   9	JMP	-1		N	2	Y
+		   7A	   9	JMP	-1	jump to decrement	N	2	Y
 		   7B	   E				Y	0	N
 		   7C	   4				Y	0	N
-	00 to 99	   7D	   7	LDAI	9		N	1	N
+	00 to 99	   7D	   7	LDAI	9	load 9 into the acc	N	1	N
 		   7E	   9				Y	0	N
-		   7F	   D	STA	tens digit		N	2	N
+		   7F	   D	STA	tens digit	store into tens digit	N	2	N
 		   80	   1				Y	0	N
 		   81	   B				Y	0	N
-		   82	   D	STA	ones digit		N	2	N
+		   82	   D	STA	ones digit	store into ones digit	N	2	N
 		   83	   2				Y	0	N
 		   84	   B				Y	0	N
-		   85	   4	OUT	2		N	1	N
+		   85	   4	OUT	2	output ones digit	N	1	N
 		   86	   2				Y	0	N
-		   87	   4	OUT	1		N	1	N
+		   87	   4	OUT	1	outputs tens digit	N	1	N
 		   88	   1				Y	0	N
-		   89	   9	JMP	-1	this code works right now as it is!!!	N	2	N
+		   89	   9	JMP	-1	jump back to decrement	N	2	N
 		   8A	   E				Y	0	N
 		   8B	   4				Y	0	N
 		   8C	   0	NOP			N	0	N

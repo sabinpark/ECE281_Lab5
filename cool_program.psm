@@ -1,0 +1,256 @@
+	restart loop	   00	   5	IN	0	put the input value into the acc	N	1	Y
+		   01	   0				Y	0	N
+		   02	   D	STA	A	store the value of A	N	2	Y
+		   03	   0				Y	0	N
+		   04	   B				Y	0	N
+		   05	   D	STA	A counter	store the value of A counter	N	2	N
+		   06	   2				Y	0	N
+		   07	   B				Y	0	N
+		   08	   5	IN	1	put the input value into the acc	N	1	Y
+		   09	   1				Y	0	N
+		   0A	   D	STA	B	store the value of B	N	2	Y
+		   0B	   1				Y	0	N
+		   0C	   B				Y	0	N
+		   0D	   7	LDAI	0	loads zero into the acc	N	1	N
+		   0E	   0				Y	0	N
+		   0F	   D	STA	ones digit	sets the ones digit of the product initially to 0	N	2	N
+		   10	   3				Y	0	N
+		   11	   B				Y	0	N
+		   12	   D	STA	tens digit	sets the tens digit of the product initially to 0	N	2	N
+		   13	   4				Y	0	N
+		   14	   B				Y	0	N
+	multiply	   15	   F	LDAD	B	load the value of B	N	2	N
+		   16	   1			B is the number of times A will be added	Y	0	N
+		   17	   B				Y	0	N
+		   18	   A	JZ	end	if B is 0, jump to the end	N	2	Y
+		   19	   5				Y	0	N
+		   1A	   6				Y	0	N
+	+1	   1B	   F	LDAD	A counter	load the value of A counter	N	2	N
+		   1C	   2				Y	0	N
+		   1D	   B				Y	0	N
+		   1E	   A	JZ	reset counter	if A counter is 0, reset the counter and decrement B, then attempt to add A again	N	2	N
+		   1F	   4				Y	0	N
+		   20	   5				Y	0	N
+		   21	   F	LDAD	ones digit	otherwise, load the ones digit	N	2	N
+		   22	   3				Y	0	N
+		   23	   B				Y	0	N
+		   24	   6	ADDI	7	check if the ones digit is 9	N	1	N
+		   25	   7				Y	0	N
+		   26	   A	JZ	+10	if the ones digit was 9, then jump to change the tens digit	N	2	N
+		   27	   C				Y	0	N
+		   28	   3				Y	0	N
+		   29	   F	LDAD	ones digit	otherwise, load the ones digit	N	2	N
+		   2A	   3				Y	0	N
+		   2B	   B				Y	0	N
+		   2C	   6	ADDI	1	then increment the ones digit by 1	N	1	N
+		   2D	   1				Y	0	N
+		   2E	   D	STA	ones digit	stores the ones digit value	N	2	N
+		   2F	   3				Y	0	N
+		   30	   B				Y	0	N
+		   31	   F	LDAD	A counter	loads the value of A counter	N	2	N
+		   32	   2				Y	0	N
+		   33	   B				Y	0	N
+		   34	   6	ADDI	F	decrements A counter by 1	N	1	N
+		   35	   F				Y	0	N
+		   36	   D	STA	A counter	stores the new A counter value	N	2	N
+		   37	   2				Y	0	N
+		   38	   B				Y	0	N
+		   39	   9	JMP	+1	jump back to continue adding	N	2	N
+		   3A	   B				Y	0	N
+		   3B	   1				Y	0	N
+	+10	   3C	   F	LDAD	A counter	loads the value of A counter	N	2	N
+		   3D	   2				Y	0	N
+		   3E	   B				Y	0	N
+		   3F	   6	ADDI	F	decrements A counter by 1	N	1	N
+		   40	   F				Y	0	N
+		   41	   D	STA	A counter	stores the new A counter value	N	2	N
+		   42	   2				Y	0	N
+		   43	   B				Y	0	N
+		   44	   F	LDAD	tens digit	loads the tens digit	N	2	N
+		   45	   4				Y	0	N
+		   46	   B				Y	0	N
+		   47	   6	ADDI	1	adds one	N	1	N
+		   48	   1				Y	0	N
+		   49	   D	STA	tens digit	stores the updated tens digit	N	2	N
+		   4A	   4				Y	0	N
+		   4B	   B				Y	0	N
+		   4C	   7	LDAI	0	loads 0	N	1	N
+		   4D	   0				Y	0	N
+		   4E	   D	STA	ones digit	resets the ones digit	N	2	N
+		   4F	   3				Y	0	N
+		   50	   B				Y	0	N
+		   51	   9	JMP	+1	go back to incrementing by 1	N	2	N
+		   52	   B				Y	0	N
+		   53	   1				Y	0	N
+	reset counter	   54	   F	LDAD	A	loads the value of A	N	2	N
+		   55	   0				Y	0	N
+		   56	   B				Y	0	N
+		   57	   D	STA	A counter	store the reset value of A counter	N	2	N
+		   58	   2				Y	0	N
+		   59	   B				Y	0	N
+		   5A	   F	LDAD	B	load the value of B	N	2	Y
+		   5B	   1				Y	0	N
+		   5C	   B				Y	0	N
+		   5D	   6	ADDI	F	decrement by one	N	1	Y
+		   5E	   F				Y	0	N
+		   5F	   D	STA	B	update the new B value	N	2	Y
+		   60	   1				Y	0	N
+		   61	   B				Y	0	N
+		   62	   9	JMP	multiply	go back to adding B	N	2	Y
+		   63	   5				Y	0	N
+		   64	   1				Y	0	N
+	end	   65	   F	LDAD	tens digit	load the tens digit	N	2	N
+		   66	   4				Y	0	N
+		   67	   B				Y	0	N
+		   68	   4	OUT	2	output the tens digit	N	1	Y
+		   69	   2				Y	0	N
+		   6A	   F	LDAD	ones digit	loads the ones digit	N	2	Y
+		   6B	   3				Y	0	N
+		   6C	   B				Y	0	N
+		   6D	   4	OUT	3	outputs the ones digit	N	1	Y
+		   6E	   3				Y	0	N
+		   6F	   9	JMP	restart loop	restart to the very beginning	N	2	Y
+		   70	   0				Y	0	N
+		   71	   0				Y	0	N
+		   72	   0	NOP			N	0	Y
+		   73	   0	NOP			N	0	Y
+		   74	   0	NOP			N	0	Y
+		   75	   0	NOP			N	0	Y
+		   76	   0	NOP			N	0	Y
+		   77	   0	NOP			N	0	Y
+		   78	   0	NOP			N	0	Y
+		   79	   0	NOP			N	0	Y
+		   7A	   0	NOP			N	0	Y
+		   7B	   0	NOP			N	0	Y
+		   7C	   0	NOP			N	0	Y
+		   7D	   0	NOP			N	0	Y
+		   7E	   0	NOP			N	0	Y
+		   7F	   0	NOP			N	0	Y
+		   80	   0	NOP			N	0	Y
+		   81	   0	NOP			N	0	Y
+		   82	   0	NOP			N	0	Y
+		   83	   0	NOP			N	0	Y
+		   84	   0	NOP			N	0	Y
+		   85	   0	NOP			N	0	Y
+		   86	   0	NOP			N	0	Y
+		   87	   0	NOP			N	0	Y
+		   88	   0	NOP			N	0	Y
+		   89	   0	NOP			N	0	Y
+		   8A	   0	NOP			N	0	Y
+		   8B	   0	NOP			N	0	Y
+		   8C	   0	NOP			N	0	Y
+		   8D	   0	NOP			N	0	Y
+		   8E	   0	NOP			N	0	Y
+		   8F	   0	NOP			N	0	Y
+		   90	   0	NOP			N	0	Y
+		   91	   0	NOP			N	0	Y
+		   92	   0	NOP			N	0	Y
+		   93	   0	NOP			N	0	Y
+		   94	   0	NOP			N	0	Y
+		   95	   0	NOP			N	0	Y
+		   96	   0	NOP			N	0	Y
+		   97	   0	NOP			N	0	Y
+		   98	   0	NOP			N	0	Y
+		   99	   0	NOP			N	0	Y
+		   9A	   0	NOP			N	0	Y
+		   9B	   0	NOP			N	0	Y
+		   9C	   0	NOP			N	0	Y
+		   9D	   0	NOP			N	0	Y
+		   9E	   0	NOP			N	0	Y
+		   9F	   0	NOP			N	0	Y
+		   A0	   0	NOP			N	0	Y
+		   A1	   0	NOP			N	0	Y
+		   A2	   0	NOP			N	0	Y
+		   A3	   0	NOP			N	0	Y
+		   A4	   0	NOP			N	0	N
+		   A5	   0	NOP			N	0	N
+		   A6	   0	NOP			N	0	N
+		   A7	   0	NOP			N	0	N
+		   A8	   0	NOP			N	0	N
+		   A9	   0	NOP			N	0	N
+		   AA	   0	NOP			N	0	N
+		   AB	   0	NOP			N	0	N
+		   AC	   0	NOP			N	0	N
+		   AD	   0	NOP			N	0	N
+		   AE	   0	NOP			N	0	N
+		   AF	   0	NOP			N	0	N
+	A	   B0	   6	
+	B	   B1	   1	
+	A counter	   B2	   4	
+	ones digit	   B3	   5	
+	tens digit	   B4	   1	
+		   B5	   0	
+		   B6	   0	
+		   B7	   0	
+		   B8	   0	
+		   B9	   0	
+		   BA	   0	
+		   BB	   0	
+		   BC	   0	
+		   BD	   0	
+		   BE	   0	
+		   BF	   0	
+		   C0	   0	
+		   C1	   0	
+		   C2	   0	
+		   C3	   0	
+		   C4	   0	
+		   C5	   0	
+		   C6	   0	
+		   C7	   0	
+		   C8	   0	
+		   C9	   0	
+		   CA	   0	
+		   CB	   0	
+		   CC	   0	
+		   CD	   0	
+		   CE	   0	
+		   CF	   0	
+		   D0	   0	
+		   D1	   0	
+		   D2	   0	
+		   D3	   0	
+		   D4	   0	
+		   D5	   0	
+		   D6	   0	
+		   D7	   0	
+		   D8	   0	
+		   D9	   0	
+		   DA	   0	
+		   DB	   0	
+		   DC	   0	
+		   DD	   0	
+		   DE	   0	
+		   DF	   0	
+		   E0	   0	
+		   E1	   0	
+		   E2	   0	
+		   E3	   0	
+		   E4	   0	
+		   E5	   0	
+		   E6	   0	
+		   E7	   0	
+		   E8	   0	
+		   E9	   0	
+		   EA	   0	
+		   EB	   0	
+		   EC	   0	
+		   ED	   0	
+		   EE	   0	
+		   EF	   0	
+		   F0	   0	
+		   F1	   0	
+		   F2	   0	
+		   F3	   0	
+		   F4	   0	
+		   F5	   0	
+		   F6	   0	
+		   F7	   0	
+		   F8	   0	
+		   F9	   0	
+		   FA	   0	
+		   FB	   0	
+		   FC	   0	
+		   FD	   0	
+		   FE	   0	
+		   FF	   0	
