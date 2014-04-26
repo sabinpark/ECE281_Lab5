@@ -15,23 +15,13 @@ Demonstrated the 2nd program demo on the FPGA to Dr. Neebel on 25 April 2015 at 
 
 
 ## Part 1 - PRISM Setup and First Program
-I followed the lab handout step-by-step and obtained my simulation shown below:
 
-#### 0 - 100 ns (LDAI, ADDI, OUT)
-![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_1.PNG "sim 1")
-
-#### 100 - 200 ns (JN, ADDI, OUT)
-![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_2.PNG "sim 2")
-
-#### 900 - 1000 ns (ADDI, OUT, JUMP)
-![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_3.PNG "sim 3")
-
-## What the Program Does
+### What the Program Does
 The program basically loads in a value of 8 to the accumulator then adds 1.  The value if output into output port 3.  As long as the current accumulator value is negative (from 8 to F), then the program will jump back to adding 1 and output the new value to output port 3.  If the value hits 0, then the program will display 0 and then go into an infinite loop.
 
-## Program Setup and Test
+### Program Setup and Test
 
-I then copied the necessary files from Lab 3 into Lab 5.  In the *Nexys2_top_shell.vhd* file, I declared and instantiated my PRISM module.
+I copied the necessary files from Lab 3 into Lab 5.  In the *Nexys2_top_shell.vhd* file, I declared and instantiated my PRISM module.
 
 Following the directions, I set my instantiation as follows:
 ```vhdl
@@ -49,6 +39,19 @@ Following the directions, I set my instantiation as follows:
 		Output_3 => nibble0
 	);
 ```
+
+I followed the lab handout step-by-step and obtained my simulation shown below:
+
+#### 0 - 100 ns (LDAI, ADDI, OUT)
+![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_1.PNG "sim 1")
+
+#### 100 - 200 ns (JN, ADDI, OUT)
+![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_2.PNG "sim 2")
+
+#### 900 - 1000 ns (ADDI, OUT, JUMP)
+![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_3.PNG "sim 3")
+
+I proceeded to run the program on the FPGA.
 
 After several attemps at messing around with the clock cycle, I eventually got the program to run with the Clock set to *Clockbus_Sig(22)*.  Anything below that did not work, and everything above was too slow for my liking.  I demonstrated my program and proceeded to work on Part 2.
 
@@ -85,3 +88,11 @@ I ran the program on the FPGA and started with 0 times all combinations of B.  T
 ## Trouble Shooting
 ### Programs 2 and 3
 I had a very frustrating time with the PRISM simulator in that everything ran very,very slowly.  I had to wait about 6 seconds before a number would count up from 00 to 01.  This made it very time-consuming to test my program.  Fortunately, after I was all done with my 2nd program, I found a solution to this madness (of course it had to be after I finished...).  What I normally did was run my program using the .jar file.  I then tried the .exe file.  Both of them were very slow.  By chance, I opened the .bat file, then ran my program.  It was exponentially faster.
+
+## Questions
+1.  When the controller's current state is FETCH, PCLd = 1, IRLd, = 1, and ACCLd = 0
+2.  The controls signals asserted while the current state is Decode LOAddr: MARLoLd, PCLd, and AEQZero_int.
+	* Next state will be Direct IO Execute.
+3.  IR, ALessZero, and AEQZero
+4.  So that the controller will know what value the data will be added to
+5.  The IR needs to hold another instruction, so we would need another bit
