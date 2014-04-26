@@ -17,9 +17,19 @@ Demonstrated the 2nd program demo on the FPGA to Dr. Neebel on 25 April 2015 at 
 ## Part 1 - PRISM Setup and First Program
 I followed the lab handout step-by-step and obtained my simulation shown below:
 
-[insert simulation images with labeled controller states]
+#### 0 - 100 ns (LDAI, ADDI, OUT)
+![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_1.PNG "sim 1")
 
-The program basically [insert what the program does]
+#### 100 - 200 ns (JN, ADDI, OUT)
+![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_2.PNG "sim 2")
+
+#### 900 - 1000 ns (ADDI, OUT, JUMP)
+![alt text](https://raw.githubusercontent.com/sabinpark/ECE281_Lab5/master/sim_3.PNG "sim 3")
+
+## What the Program Does
+The program basically loads in a value of 8 to the accumulator then adds 1.  The value if output into output port 3.  As long as the current accumulator value is negative (from 8 to F), then the program will jump back to adding 1 and output the new value to output port 3.  If the value hits 0, then the program will display 0 and then go into an infinite loop.
+
+## Program Setup and Test
 
 I then copied the necessary files from Lab 3 into Lab 5.  In the *Nexys2_top_shell.vhd* file, I declared and instantiated my PRISM module.
 
@@ -41,6 +51,8 @@ Following the directions, I set my instantiation as follows:
 ```
 
 After several attemps at messing around with the clock cycle, I eventually got the program to run with the Clock set to *Clockbus_Sig(22)*.  Anything below that did not work, and everything above was too slow for my liking.  I demonstrated my program and proceeded to work on Part 2.
+
+On the FGPA, the program did display the 9, then incremented by 1 until the final output displayed a 0.  The program did remain at zero as expected. 
 
 ## Part 2 - PRISM Assembly Programming
 
