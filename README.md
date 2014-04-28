@@ -6,13 +6,17 @@ Sabin's Lab 5
 ## Demonstrations
 
 ### 1st Program
-Demonstrated the 1st program demo on the FPGA to Dr. Neebel on 18 April 2014 in class.
+Demonstrated the 1st program on the FPGA to Dr. Neebel on 18 April 2014 in class.
 
 ### 2nd Program
-Demonstrated the 2nd program demo on the FPGA to Dr. Neebel on 25 April 2015 at 0845.
+Demonstrated the 2nd program on the FPGA to Dr. Neebel on 25 April 2015 at 0845.
 
 ### 3rd Program (The super duper cool program...)
+Demonstrated the 3rd program on the simulator and the FPGA to Dr. Neebel on 28 April at 0812.
 
+
+## *NOTE*
+To run the programs on the FPGA, simply rename the ROM files back to the original *ROM_176x4.vhd*
 
 ## Part 1 - PRISM Setup and First Program
 
